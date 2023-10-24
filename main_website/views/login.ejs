@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Your CSS styles for login.html -->
+    <style>
+        /* Your CSS styles for login.html */
+        * {
+            overflow-x: hidden;
+            box-sizing: border-box;
+            user-select: none;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #f3f3f3, #ffb700, #f3f3f3);
+            background-size: 400% 400%;
+            animation: gradientAnimation 5s infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        #login-form {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin: 10px 0;
+        }
+
+        .label-text {
+            text-align: left;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #login-button {
+            background-color: #F90;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        #login-button:hover {
+            background-color: #E80;
+        }
+
+        #error-message {
+            color: #FF6961;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .header {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            background-color: #232f3e;
+            height: 252px;
+            width: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 10px;
+        }
+
+        .brand {
+            color: white;
+            text-decoration: none;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .top-line h1{
+            text-align: center;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="top-line">
+            <a class="brand" href="/index" style="display: flex; align-items: center;"><img src="logo.png" alt="" style="margin-right: 5px;"> Amazon Re-Box</a>
+            <h1 style="display: flex; justify-content: center; align-items: center;"><img src="login.png" alt="" style="margin-right: 5px;">Login</h1>
+        </div>
+    </div>
+    <div id="login-form">
+        <form action="/login" method="post">
+            <div class="form-group">
+                <label class="label-text" for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label class="label-text" for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button id="login-button" type="submit" name="submit">Login</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <!-- Bootstrap stylesheets -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        * {
+            overflow-x: hidden;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background-color: #232f3e;
+            color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0; /* Removed left and right padding to cover the entire screen width */
+        }
+
+        .header .brand {
+            font-size: 36px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #ffffff;
+            margin-left: 20px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-right: 20px; /* Add margin to the right to center the user info */
+        }
+
+        .username {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .icons img {
+            margin-right: 10px;
+            width: 24px;
+            height: 24px;
+        }
+
+        .product-info-container {
+            display: flex;
+            padding: 20px;
+            text-align: center;
+            margin: 20px;
+        }
+
+        .product-image {
+            max-width: 400px; /* Fixed width for the product image */
+            max-height: 400px;
+            display: block;
+            margin-right: 20px;
+        }
+
+        .product-details {
+            flex: 1;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adding a shadow to the white block */
+            padding: 20px;
+        }
+
+        .product-info {
+            flex: 1;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .product-info h1 {
+            font-size: 28px;
+        }
+
+        .product-info h2 {
+            font-size: 24px;
+        }
+
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .packaging-options {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .packaging-options label {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .coupon {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .coupon-input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            margin: 10px;
+        }
+
+        .apply-button {
+            background-color: #FF9900;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .confirm-button {
+            background-color: #28A745;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .message {
+            display: block;
+            color: #28A745;
+            font-size: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .error-message {
+            color: #FF0000;
+            font-size: 16px;
+            margin-top: 5px;
+            text-align: center;
+            display: none;
+        }
+
+        .footer {
+            background-color: #232f3e;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+<body>
+        <div class="header">
+            <a class="brand" href="/index"><img src="logo.png" alt=""> Amazon Re-Box</a>
+            <h1 style="margin: auto; display: flex; align-items: center;"><img style="margin-right: 5px;" src="confirm_icon.png" alt="">Order Confirmed</h1>
+            <div class="user-info">
+                <a href="/user_info"><img src="profile_icon_normal_page.png"; alt=""></a>
+            </div>
+            <div class="icons">
+                <a href="/wishlist"><img src="wishlist_icon.png" alt="Wishlist"></a>
+                <a href="/cart"><img src="cart_icon.png" alt="Cart"></a>
+            </div>
+        </div>
+        
+    <div class="product-info-container">
+        <img class="product-image" src="<%=p_image%>" alt="Product Image">
+        <div class="product-details">
+            <h2><%=p_name%></h2>
+            <p><%=p_description%></p>
+            <div id="confirmation-message" class="message">Order Confirmed ✔</div>
+            <p>
+                Re-Box: keep the delivery box safe with you until your next order delivery. Once the delivery man of your next order arrives hand over the delivery box you saved to him to gain green points and earn exciting rewards.
+            </p>
+        </div>
+    </div>
+    <img src="banner.png" alt="">
+
+    <div class="footer">
+        &copy; 2023 Amazon Re-Box
+    </div>
+    <!-- Bootstrap scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

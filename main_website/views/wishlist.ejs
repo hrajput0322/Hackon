@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist</title>
+    <!-- Bootstrap stylesheets -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        * {
+            overflow-x: hidden;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .user-info #login-button {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        .user-info .icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info .icons img {
+            margin-right: 10px;
+            width: 24px;
+            height: 24px;
+        }
+
+        .header {
+            background-color: #232f3e;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .header .top-line {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .header .brand {
+            font-size: 36px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #ffffff;
+            margin-right: 10px;
+        }
+
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background-color: #232f3e;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 100px;
+            background-color: #232f3e;
+            color: #ffffff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .footer a {
+            color: black;
+        }
+
+        .card {
+            margin-bottom: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-body {
+            max-height: 400px;
+            overflow: hidden;
+        }
+
+        .card-title {
+            width: 300px; /* Adjust the width as needed */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .ellipsis {
+            margin: 0;
+        }
+
+        .remove-from-wishlist {
+            margin-bottom: 20px;
+        }
+
+        .add-to-cart, .add-to-wishlist {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="top-line">
+            <a class="brand" href="/index"><img src="logo.png" alt=""> Amazon Re-Box</a>
+            <h1 style="display: flex; align-items: center;"><img src="wishlist.png" alt="" style="margin-right: 5px;">Wishlist</h1>
+            <div class="user-info" id="user-info">
+                <span id="user-display">
+                        <a href="/user_info"><img src="profile_icon_normal_page.png" style="margin-right: 10px;" alt=""></a>
+                </span>
+                <div class="icons">
+                        <a href="/wishlist"><img src="wishlist_icon.png" alt="Wishlist"></a>
+                        <a href="/cart"><img src="cart_icon.png" alt="Cart"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <div class="image-container">
+            <% if (products.length > 0) { %>
+                <!-- First Row of Images -->
+                <div class="image-row row">
+                    <% for (let i = 0; i < products.length; i++) { %>
+                    <div class="image-item col-md-3">
+                        <a href="/checkout?p_name=<%= products[i].p_name %>" style="text-decoration: none; color: black;">
+                            <div class="card">
+                                <img src="<%= products[i].p_image %>" alt="Image <%= i + 1 %>" class="card-img-top">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%= products[i].p_name %></h5>
+                                </div>
+                            </div>
+                        </a>
+                        <button class="btn btn-lg btn-danger remove-from-wishlist" data-product="<%= products[i].p_name %>">Remove</button>
+                    </div>
+                    <% if ((i + 1) % 4 === 0) { %>
+                    </div>
+                    <div class="image-row row">
+                    <% } %>
+                    <% } %>
+                </div>
+            <% } else { %>
+                <!-- Display "no image" when the wishlist is empty -->
+                <img src="no_image.png" alt="Wishlist is Empty" style="width: 495px; height: 495px;">
+                <p>Wishlist is Empty</p>
+            <% } %>
+        </div>
+    </main>
+    
+    <div class="footer">
+        &copy; 2023 Amazon Re-Box
+    </div>
+
+    <script>
+        const removeButtons = document.querySelectorAll('.remove-from-wishlist');
+        removeButtons.forEach(button => {
+            button.addEventListener("click", function() {
+                const p_name = this.getAttribute('data-product');
+                $.ajax({
+                    type: "POST",
+                    url: "/remove-from-wishlist",
+                    data: { p_name: p_name },
+                    success: function(response) {
+                        location.reload();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

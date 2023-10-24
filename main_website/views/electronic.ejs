@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electronics</title>
+    <!-- Bootstrap stylesheets -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        * {
+            overflow-x: hidden;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #232f3e;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .header .top-line {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .header .brand {
+            font-size: 36px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #ffffff;
+            margin-right: 10px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .user-info #login-button {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        .user-info .icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info .icons img {
+            margin-right: 10px;
+            width: 24px;
+            height: 24px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+            margin-top: 20px;
+            border: 1px solid black;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-body {
+            max-height: 400px;
+            overflow: hidden;
+        }
+
+        .text-container {
+            width: 300px; /* Adjust the width as needed */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .ellipsis {
+            margin: 0;
+        }
+
+        .eco {
+            border: 1px solid black;
+            display: flex;
+            align-items: center;
+            height: 30px;
+            justify-content: center;
+            background-color: rgb(0, 255, 0);
+            border-radius: 5px;
+            text-align: center;
+            /* font-weight: bold; */
+        }
+
+        .normal {
+            border: 1px solid black;
+            display: flex;
+            align-items: center;
+            height: 30px;
+            justify-content: center;
+            background-color: #232f3e;
+            border-radius: 5px;
+            text-align: center;
+            /* font-weight: bold; */
+            color: white;
+        }
+
+        .footer {
+            background-color: #232f3e;
+            color: #ffffff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .footer a {
+            color: black;
+        }
+
+        .add-to-cart, .add-to-wishlist {
+            margin-bottom: 10px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="top-line">
+            <a class="brand" href="/index"><img src="logo.png" alt=""> Amazon Re-Box</a>
+            <h1><img src="electronics_icon.png" alt="" style="margin-right: 5px;">Electronics</h1>
+            <div class="user-info" id="user-info">
+                <span id="user-display">
+                    <% if(locals.username) { %>
+                        <a href="/user_info"><img src="profile_icon_normal_page.png" style="margin-right: 10px;" alt=""></a>
+                    <% } %>
+                    <% if (!locals.username) { %>
+                        <a href="/login" style="text-decoration: none; color: black;">
+                            <button class="btn btn-warning" style="text-align: center; margin-right: 10px;">
+                                Sign In
+                            </button>
+                        </a>
+                    <% } %>
+                </span>
+                <div class="icons">
+                    <% if (locals.username) {%>
+                        <a href="/wishlist"><img src="wishlist_icon.png" alt="Wishlist"></a>
+                        <a href="/cart"><img src="cart_icon.png" alt="Cart"></a>
+                    <%}%>
+                </div>
+            </div>
+        </div>
+    </div>
+    <img src="electronics_banner.png" style="width: 98%; height: 500px; margin: 15px; border: 2px solid black;" alt="Large Image">
+    <div class="image-grid">
+        <!-- Your image grid here -->
+        <div class="image-grid">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card">
+                        <a href="/checkout?p_name=<%= name1 %>" style="text-decoration: none; color: black;">
+                            <%if (locals.img1) {%>
+                            <img src="<%=img1%>" class="card-img-top" alt="Image 1">
+                            <%}%>
+                            <div class="card-body">
+                                <p class="card-text text-container"><%=name1%></p>
+                                <p class="card-text text-container eco"><%=tag1%></p>
+                            </div>
+                        </a>
+                    </div>
+                    <%if (locals.username) {%>
+                        <button id="add-to-wishlist-<%=name1%>" class="btn btn-lg btn-danger add-to-wishlist" style="width: 15%; margin-right: 5px;margin-left: 10px;"><img src="wishlist_icon.png" alt="Wishlist"></button>
+                        <button id="add-to-cart-<%=name1%>" class="btn btn-lg btn-warning add-to-cart" style="width: 75%;">Add to Cart</button>
+                        <%}%>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <a href="/checkout?p_name=<%= name2 %>" style="text-decoration: none; color: black;">
+                            <img src="<%=img2%>" class="card-img-top" alt="Image 2">
+                            <div class="card-body">
+                                <p class="card-text text-container"><%=name2%></p>
+                                <p class="card-text text-container eco"><%=tag2%></p>
+                            </div>
+                        </a>
+                    </div>
+                    <%if (locals.username) {%>
+                        <button id="add-to-wishlist-<%=name2%>" class="btn btn-lg btn-danger add-to-wishlist" style="width: 15%; margin-right: 5px;margin-left: 10px;"><img src="wishlist_icon.png" alt="Wishlist"></button>
+                        <button id="add-to-cart-<%=name2%>" class="btn btn-lg btn-warning add-to-cart" style="width: 75%;">Add to Cart</button>
+                        <%}%>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <a href="/checkout?p_name=<%= name3 %>" style="text-decoration: none; color: black;">
+                            <img src="<%=img3%>" class="card-img-top" alt="Image 3">
+                            <div class="card-body">
+                                <p class="card-text text-container"><%=name3%></p>
+                                <p class="card-text text-container eco"><%=tag3%></p>
+                            </div>
+                        </a>
+                    </div>
+                    <%if (locals.username) {%>
+                        <button id="add-to-wishlist-<%=name3%>" class="btn btn-lg btn-danger add-to-wishlist" style="width: 15%; margin-right: 5px;margin-left: 10px;"><img src="wishlist_icon.png" alt="Wishlist"></button>
+                        <button id="add-to-cart-<%=name3%>" class="btn btn-lg btn-warning add-to-cart" style="width: 75%;">Add to Cart</button>
+                        <%}%>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <a href="/checkout?p_name=<%= name4 %>" style="text-decoration: none; color: black;">
+                            <img src="<%=img4%>" class="card-img-top" alt="Image 4">
+                            <div class="card-body">
+                                <p class="card-text text-container"><%=name4%></p>
+                                <p class="card-text text-container eco"><%=tag4%></p>
+                            </div>
+                        </a>
+                    </div>
+                    <%if (locals.username) {%>
+                        <button id="add-to-wishlist-<%=name4%>" class="btn btn-lg btn-danger add-to-wishlist" style="width: 15%; margin-right: 5px;margin-left: 10px;"><img src="wishlist_icon.png" alt="Wishlist"></button>
+                        <button id="add-to-cart-<%=name4%>" class="btn btn-lg btn-warning add-to-cart" style="width: 75%;">Add to Cart</button>
+                        <%}%>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <a href="/checkout?p_name=<%= name5 %>" style="text-decoration: none; color: black;">
+                            <img src="<%=img5%>" class="card-img-top" alt="Image 2">
+                            <div class="card-body">
+                                <p class="card-text text-container"><%=name5%></p>
+                                <p class="card-text text-container eco"><%=tag5%></p>
+                            </div>
+                        </a>
+                    </div><%if (locals.username) {%>
+                        <button id="add-to-wishlist-<%=name5%>" class="btn btn-lg btn-danger add-to-wishlist" style="width: 15%; margin-right: 5px;margin-left: 10px;"><img src="wishlist_icon.png" alt="Wishlist"></button>
+                        <button id="add-to-cart-<%=name5%>" class="btn btn-lg btn-warning add-to-cart" style="width: 75%;">Add to Cart</button>
+                        <%}%>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <a href="/checkout?p_name=<%= name6 %>" style="text-decoration: none; color: black;">
+                            <img src="<%=img6%>" class="card-img-top" alt="Image 3">
+                            <div class="card-body">
+                                <p class="card-text text-container"><%=name6%></p>
+                                <p class="card-text text-container eco"><%=tag6%></p>
+                            </div>
+                        </a>
+                    </div>
+                    <%if (locals.username) {%>
+                        <button id="add-to-wishlist-<%=name6%>" class="btn btn-lg btn-danger add-to-wishlist" style="width: 15%; margin-right: 5px;margin-left: 10px;"><img src="wishlist_icon.png" alt="Wishlist"></button>
+                        <button id="add-to-cart-<%=name6%>" class="btn btn-lg btn-warning add-to-cart" style="width: 75%;">Add to Cart</button>
+                        <%}%>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <a href="/checkout?p_name=<%= name7 %>" style="text-decoration: none; color: black;">
+                            <img src="<%=img7%>" class="card-img-top" alt="Image 4">
+                            <div class="card-body">
+                                <p class="card-text text-container"><%=name7%></p>
+                                <p class="card-text text-container eco"><%=tag7%></p>
+                            </div>
+                        </a>
+                    </div>
+                    <%if (locals.username) {%>
+                        <button id="add-to-wishlist-<%=name7%>" class="btn btn-lg btn-danger add-to-wishlist" style="width: 15%; margin-right: 5px;margin-left: 10px;"><img src="wishlist_icon.png" alt="Wishlist"></button>
+                        <button id="add-to-cart-<%=name7%>" class="btn btn-lg btn-warning add-to-cart" style="width: 75%;">Add to Cart</button>
+                        <%}%>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <a href="/checkout?p_name=<%= name8 %>" style="text-decoration: none; color: black;">
+                            <img src="<%=img8%>" class="card-img-top" alt="Image 4">
+                            <div class="card-body">
+                                <p class="card-text text-container"><%=name8%></p>
+                                <p class="card-text text-container normal"><%=tag8%></p>
+                            </div>
+                        </a>
+                    </div>
+                    <%if (locals.username) {%>
+                        <button id="add-to-wishlist-<%=name8%>" class="btn btn-lg btn-danger add-to-wishlist" style="width: 15%; margin-right: 5px;margin-left: 10px;"><img src="wishlist_icon.png" alt="Wishlist"></button>
+                        <button id="add-to-cart-<%=name8%>" class="btn btn-lg btn-warning add-to-cart" style="width: 75%;">Add to Cart</button>
+                        <%}%>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <a href="/checkout?p_name=<%= name9 %>" style="text-decoration: none; color: black;">
+                            <img src="<%=img9%>" class="card-img-top" alt="Image 4">
+                            <div class="card-body">
+                                <p class="card-text text-container"><%=name9%></p>
+                                <p class="card-text text-container normal"><%=tag9%></p>
+                            </div>
+                        </a>
+                    </div>
+                    <%if (locals.username) {%>
+                        <button id="add-to-wishlist-<%=name9%>" class="btn btn-lg btn-danger add-to-wishlist" style="width: 15%; margin-right: 5px;margin-left: 10px;"><img src="wishlist_icon.png" alt="Wishlist"></button>
+                        <button id="add-to-cart-<%=name9%>" class="btn btn-lg btn-warning add-to-cart" style="width: 75%;">Add to Cart</button>
+                        <%}%>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <a href="/checkout?p_name=<%= name10 %>" style="text-decoration: none; color: black;">
+                            <img src="<%=img10%>" class="card-img-top" alt="Image 4">
+                            <div class="card-body">
+                                <p class="card-text text-container"><%=name10%></p>
+                                <p class="card-text text-container normal"><%=tag10%></p>
+                            </div>
+                        </a>
+                    </div>
+                    <%if (locals.username) {%>
+                        <button id="add-to-wishlist-<%=name10%>" class="btn btn-lg btn-danger add-to-wishlist" style="width: 15%; margin-right: 5px;margin-left: 10px;"><img src="wishlist_icon.png" alt="Wishlist"></button>
+                        <button id="add-to-cart-<%=name10%>" class="btn btn-lg btn-warning add-to-cart" style="width: 75%;">Add to Cart</button>
+                        <%}%>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <a href="/checkout?p_name=<%= name11 %>" style="text-decoration: none; color: black;">
+                            <img src="<%=img11%>" class="card-img-top" alt="Image 4">
+                            <div class="card-body">
+                                <p class="card-text text-container"><%=name11%></p>
+                                <p class="card-text text-container normal"><%=tag11%></p>
+                            </div>
+                        </a>
+                    </div>
+                    <%if (locals.username) {%>
+                        <button id="add-to-wishlist-<%=name11%>" class="btn btn-lg btn-danger add-to-wishlist" style="width: 15%; margin-right: 5px;margin-left: 10px;"><img src="wishlist_icon.png" alt="Wishlist"></button>
+                        <button id="add-to-cart-<%=name11%>" class="btn btn-lg btn-warning add-to-cart" style="width: 75%;">Add to Cart</button>
+                        <%}%>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <a href="/checkout?p_name=<%= name12 %>" style="text-decoration: none; color: black;">
+                            <img src="<%=img12%>" class="card-img-top" alt="Image 4">
+                            <div class="card-body">
+                                <p class="card-text text-container"><%=name12%></p>
+                                <p class="card-text text-container normal"><%=tag12%></p>
+                            </div>
+                        </a>
+                    </div>
+                    <%if (locals.username) {%>
+                        <button id="add-to-wishlist-<%=name12%>" class="btn btn-lg btn-danger add-to-wishlist" style="width: 15%; margin-right: 5px;margin-left: 10px;"><img src="wishlist_icon.png" alt="Wishlist"></button>
+                        <button id="add-to-cart-<%=name12%>" class="btn btn-lg btn-warning add-to-cart" style="width: 75%;">Add to Cart</button>
+                        <%}%>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        &copy; 2023 Amazon Re-Box
+    </div>
+    <script>
+        document.getElementById("add-to-wishlist-<%=name1%>").addEventListener("click", function() {
+            const p_name = "<%=name1%>";
+            $.ajax({
+                type: "POST",
+                url: "/add-to-wishlist",
+                data: {p_name: p_name},
+                success: function(response) {
+                    alert("product added to wishlist!");
+                }
+            });
+        });
+
+        document.getElementById("add-to-wishlist-<%=name2%>").addEventListener("click", function() {
+            const p_name = "<%=name2%>";
+            $.ajax({
+                type: "POST",
+                url: "/add-to-wishlist",
+                data: {p_name: p_name},
+                success: function(response) {
+                    alert("product added to wishlist!");
+                }
+            });
+        });
+
+        document.getElementById("add-to-wishlist-<%=name3%>").addEventListener("click", function() {
+            const p_name = "<%=name3%>";
+            $.ajax({
+                type: "POST",
+                url: "/add-to-wishlist",
+                data: {p_name: p_name},
+                success: function(response) {
+                    alert("product added to wishlist!");
+                }
+            });
+        });
+
+        document.getElementById("add-to-wishlist-<%=name4%>").addEventListener("click", function() {
+            const p_name = "<%=name4%>";
+            $.ajax({
+                type: "POST",
+                url: "/add-to-wishlist",
+                data: {p_name: p_name},
+                success: function(response) {
+                    alert("product added to wishlist!");
+                }
+            });
+        });
+
+        document.getElementById("add-to-wishlist-<%=name5%>").addEventListener("click", function() {
+            const p_name = "<%=name5%>";
+            $.ajax({
+                type: "POST",
+                url: "/add-to-wishlist",
+                data: {p_name: p_name},
+                success: function(response) {
+                    alert("product added to wishlist!");
+                }
+            });
+        });
+
+        document.getElementById("add-to-wishlist-<%=name6%>").addEventListener("click", function() {
+            const p_name = "<%=name6%>";
+            $.ajax({
+                type: "POST",
+                url: "/add-to-wishlist",
+                data: {p_name: p_name},
+                success: function(response) {
+                    alert("product added to wishlist!");
+                }
+            });
+        });
+
+        document.getElementById("add-to-wishlist-<%=name7%>").addEventListener("click", function() {
+            const p_name = "<%=name7%>";
+            $.ajax({
+                type: "POST",
+                url: "/add-to-wishlist",
+                data: {p_name: p_name},
+                success: function(response) {
+                    alert("product added to wishlist!");
+                }
+            });
+        });
+
+        document.getElementById("add-to-wishlist-<%=name8%>").addEventListener("click", function() {
+            const p_name = "<%=name8%>";
+            $.ajax({
+                type: "POST",
+                url: "/add-to-wishlist",
+                data: {p_name: p_name},
+                success: function(response) {
+                    alert("product added to wishlist!");
+                }
+            });
+        });
+
+        document.getElementById("add-to-wishlist-<%=name9%>").addEventListener("click", function() {
+            const p_name = "<%=name9%>";
+            $.ajax({
+                type: "POST",
+                url: "/add-to-wishlist",
+                data: {p_name: p_name},
+                success: function(response) {
+                    alert("product added to wishlist!");
+                }
+            });
+        });
+
+        document.getElementById("add-to-wishlist-<%=name10%>").addEventListener("click", function() {
+            const p_name = "<%=name10%>";
+            $.ajax({
+                type: "POST",
+                url: "/add-to-wishlist",
+                data: {p_name: p_name},
+                success: function(response) {
+                    alert("product added to wishlist!");
+                }
+            });
+        });
+
+        document.getElementById("add-to-wishlist-<%=name11%>").addEventListener("click", function() {
+            const p_name = "<%=name11%>";
+            $.ajax({
+                type: "POST",
+                url: "/add-to-wishlist",
+                data: {p_name: p_name},
+                success: function(response) {
+                    alert("product added to wishlist!");
+                }
+            });
+        });
+
+        document.getElementById("add-to-wishlist-<%=name12%>").addEventListener("click", function() {
+            const p_name = "<%=name12%>";
+            $.ajax({
+                type: "POST",
+                url: "/add-to-wishlist",
+                data: {p_name: p_name},
+                success: function(response) {
+                    alert("product added to wishlist!");
+                }
+            });
+        });
+
+        // add to cart
+
+        document.getElementById("add-to-cart-<%=name1%>").addEventListener("click", function() {
+            const p_name = "<%=name1%>"; // Get the product name from the button's data attribute
+
+            $.ajax({
+                type: "POST",
+                url: "/add-to-cart",
+                data: { p_name: p_name },
+                success: function(response) {
+                    // Handle the response from the server (e.g., display a success message)
+                    alert("product added to cart!");
+                }
+            });
+        });
+
+        document.getElementById("add-to-cart-<%=name2%>").addEventListener("click", function() {
+            const p_name = "<%=name2%>"; // Get the product name from the button's data attribute
+
+            $.ajax({
+                type: "POST",
+                url: "/add-to-cart",
+                data: { p_name: p_name },
+                success: function(response) {
+                    // Handle the response from the server (e.g., display a success message)
+                    alert("product added to cart!");
+                }
+            });
+        });
+
+        document.getElementById("add-to-cart-<%=name3%>").addEventListener("click", function() {
+            const p_name = "<%=name3%>"; // Get the product name from the button's data attribute
+
+            $.ajax({
+                type: "POST",
+                url: "/add-to-cart",
+                data: { p_name: p_name },
+                success: function(response) {
+                    // Handle the response from the server (e.g., display a success message)
+                    alert("product added to cart!");
+                }
+            });
+        });
+
+        document.getElementById("add-to-cart-<%=name4%>").addEventListener("click", function() {
+            const p_name = "<%=name4%>"; // Get the product name from the button's data attribute
+
+            $.ajax({
+                type: "POST",
+                url: "/add-to-cart",
+                data: { p_name: p_name },
+                success: function(response) {
+                    // Handle the response from the server (e.g., display a success message)
+                    alert("product added to cart!");
+                }
+            });
+        });
+
+        document.getElementById("add-to-cart-<%=name5%>").addEventListener("click", function() {
+            const p_name = "<%=name5%>"; // Get the product name from the button's data attribute
+
+            $.ajax({
+                type: "POST",
+                url: "/add-to-cart",
+                data: { p_name: p_name },
+                success: function(response) {
+                    // Handle the response from the server (e.g., display a success message)
+                    alert("product added to cart!");
+                }
+            });
+        });
+
+        document.getElementById("add-to-cart-<%=name6%>").addEventListener("click", function() {
+            const p_name = "<%=name6%>"; // Get the product name from the button's data attribute
+
+            $.ajax({
+                type: "POST",
+                url: "/add-to-cart",
+                data: { p_name: p_name },
+                success: function(response) {
+                    // Handle the response from the server (e.g., display a success message)
+                    alert("product added to cart!");
+                }
+            });
+        });
+
+        document.getElementById("add-to-cart-<%=name7%>").addEventListener("click", function() {
+            const p_name = "<%=name7%>"; // Get the product name from the button's data attribute
+
+            $.ajax({
+                type: "POST",
+                url: "/add-to-cart",
+                data: { p_name: p_name },
+                success: function(response) {
+                    // Handle the response from the server (e.g., display a success message)
+                    alert("product added to cart!");
+                }
+            });
+        });
+
+        document.getElementById("add-to-cart-<%=name8%>").addEventListener("click", function() {
+            const p_name = "<%=name8%>"; // Get the product name from the button's data attribute
+
+            $.ajax({
+                type: "POST",
+                url: "/add-to-cart",
+                data: { p_name: p_name },
+                success: function(response) {
+                    // Handle the response from the server (e.g., display a success message)
+                    alert("product added to cart!");
+                }
+            });
+        });
+
+        document.getElementById("add-to-cart-<%=name9%>").addEventListener("click", function() {
+            const p_name = "<%=name9%>"; // Get the product name from the button's data attribute
+
+            $.ajax({
+                type: "POST",
+                url: "/add-to-cart",
+                data: { p_name: p_name },
+                success: function(response) {
+                    // Handle the response from the server (e.g., display a success message)
+                    alert("product added to cart!");
+                }
+            });
+        });
+
+        document.getElementById("add-to-cart-<%=name10%>").addEventListener("click", function() {
+            const p_name = "<%=name10%>"; // Get the product name from the button's data attribute
+
+            $.ajax({
+                type: "POST",
+                url: "/add-to-cart",
+                data: { p_name: p_name },
+                success: function(response) {
+                    // Handle the response from the server (e.g., display a success message)
+                    alert("product added to cart!");
+                }
+            });
+        });
+
+        document.getElementById("add-to-cart-<%=name11%>").addEventListener("click", function() {
+            const p_name = "<%=name11%>"; // Get the product name from the button's data attribute
+
+            $.ajax({
+                type: "POST",
+                url: "/add-to-cart",
+                data: { p_name: p_name },
+                success: function(response) {
+                    // Handle the response from the server (e.g., display a success message)
+                    alert("product added to cart!");
+                }
+            });
+        });
+
+        document.getElementById("add-to-cart-<%=name12%>").addEventListener("click", function() {
+            const p_name = "<%=name12%>"; // Get the product name from the button's data attribute
+
+            $.ajax({
+                type: "POST",
+                url: "/add-to-cart",
+                data: { p_name: p_name },
+                success: function(response) {
+                    // Handle the response from the server (e.g., display a success message)
+                    alert("product added to cart!");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
