@@ -1,5 +1,10 @@
 # Hackon
 
+Main website hosted on AWS: [click here](http://website-env.eba-kbg4pmam.ap-south-1.elasticbeanstalk.com/)
+
+Scanner that will be on the delivery box:
+![scanner that will be on the delivery box](https://github.com/hrajput0322/Hackon/assets/104441259/c7ae3a05-4c2d-41c0-a20f-efc195ca0ad6)
+
 Amazon Re-Box: Redefining Sustainability in E-commerce
 
 Overview:
